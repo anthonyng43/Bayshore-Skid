@@ -1,0 +1,41 @@
+{
+  "name": "bayshore",
+  "version": "1.0.0",
+  "description": "Wangan Midnight Maximum Tune 4 server",
+  "main": "dist/index.js",
+  "repository": "",
+  "author": "",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "dev": "tsc && node dist",
+    "build_ts": "tsc",
+    "build_protos": "tsc -p ./tsconfig.proto.json",
+    "run": "node dist"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^18.0.3",
+    "prisma": "^4.16.2",
+    "protobufjs-cli": "^1.0.0",
+    "ts-node": "^10.8.2",
+    "typescript": "5.1"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.16.2",
+    "@sentry/node": "^7.7.0",
+    "@sentry/tracing": "^7.7.0",
+    "@types/pem": "^1.9.6",
+    "@types/ws": "^8.5.4",
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "form-urlencoded": "^6.0.6",
+    "iconv-lite": "^0.6.3",
+    "long": "^5.2.0",
+    "moment": "^2.29.4",
+    "pem": "^1.14.6",
+    "protobufjs": "^7.2.5",
+    "ts-proto": "^1.117.0"
+  }
+}

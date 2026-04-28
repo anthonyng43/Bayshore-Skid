@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "outDir": "dist/wmmt",
+        "strict": true,
+        "lib": ["esnext"],
+        "esModuleInterop": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "types": [
+            "long"
+        ]
+    },
+    "include": ["src/wmmt/**/*"]
+}

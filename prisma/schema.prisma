@@ -1,0 +1,384 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model Car {
+  carId                                  Int                                      @id @default(autoincrement())
+  userId                                 Int
+  name                                   String
+  regionId                               Int                                      @default(1)
+  manufacturer                           Int
+  model                                  Int
+  visualModel                            Int
+  defaultColor                           Int
+  customColor                            Int                                      @default(0)
+  wheel                                  Int                                      @default(0)
+  wheelColor                             Int                                      @default(0)
+  aero                                   Int                                      @default(0)
+  bonnet                                 Int                                      @default(0)
+  wing                                   Int                                      @default(0)
+  mirror                                 Int                                      @default(0)
+  sticker                                Int                                      @default(0)
+  stickerColor                           Int                                      @default(0)
+  neon                                   Int                                      @default(0)
+  trunk                                  Int                                      @default(0)
+  plate                                  Int                                      @default(0)
+  plateColor                             Int                                      @default(0)
+  specialSticker                         Int                                      @default(0)
+  specialStickerColor                    Int                                      @default(0)
+  tunePower                              Int                                      @default(0)
+  tuneHandling                           Int                                      @default(0)
+  title                                  Int                                      @default(0)
+  level                                  Int                                      @default(0)
+  lastPlayedAt                           Int                                      @default(0)
+  lastPlayedPlaceId                      Int?
+  aura                                   Int                                      @default(0)
+  ghostLevel                             Int                                      @default(1)
+  country                                String                                   @default("JPN")
+  searchCode                             String                                   @unique
+  tuningPoint                            Int                                      @default(0)
+  odometer                               Int                                      @default(0)
+  playCount                              Int                                      @default(0)
+  earnedCustomColor                      Boolean                                  @default(false)
+  ownedCustomColors                      Int                                      @default(0)
+  ownedDressupParts                      Int                                      @default(0)
+  ownedMeters                            Int                                      @default(0)
+  ownedBgm                               Int                                      @default(0)
+  ownedNameplates                        Int                                      @default(0)
+  carSettingsDbId                        Int                                      @unique
+  vsPlayCount                            Int                                      @default(0)
+  vsBurstCount                           Int                                      @default(0)
+  vsStarCount                            Int                                      @default(0)
+  vsStarCountMax                         Int                                      @default(0)
+  vsCoolOrWild                           Int                                      @default(0)
+  vsSmoothOrRough                        Int                                      @default(0)
+  rgPlayCount                            Int                                      @default(0)
+  rgWinCount                             Int                                      @default(0)
+  maxiCoin                               Int                                      @default(0)
+  rgScore                                Int                                      @default(0)
+  rgBlock                                Int                                      @default(0)
+  rgProgress                             Int[]
+  rgClearCount                           Int                                      @default(0)
+  rgConsecutiveLosses                    Int                                      @default(0)
+  rgAcquireAllCrowns                     Boolean                                  @default(false)
+  dressupLevel                           Int                                      @default(0)
+  dressupPoint                           Int                                      @default(0)
+  stPlayCount                            Int                                      @default(0)
+  stClearBits                            Int                                      @default(0)
+  stClearDivCount                        Int                                      @default(0)
+  stClearCount                           Int                                      @default(0)
+  stLoseBits                             BigInt                                   @default(0)
+  stLose                                 Boolean                                  @default(false)
+  stConsecutiveWins                      Int                                      @default(0)
+  stConsecutiveWinsMax                   Int                                      @default(0)
+  teamId                                 Int                                      @default(0)
+  teamName                               String                                   @default("ＷＡＮＧＡＮ")
+  teamSticker                            Boolean                                  @default(true)
+  stickerFont                            Int                                      @default(1)
+  carStateDbId                           Int                                      @unique
+  setting                                CarSettings                              @relation(fields: [carSettingsDbId], references: [dbId])
+  state                                  CarState                                 @relation(fields: [carStateDbId], references: [dbId])
+  lastPlayedPlace                        PlaceList?                               @relation(fields: [lastPlayedPlaceId], references: [id])
+  user                                   User                                     @relation(fields: [userId], references: [id])
+  ghostBattleRecord                      GhostBattleRecord[]
+  ghostCompetitionBattleRecord           GhostCompetitionBattleRecord[]
+  ghostCompetitionGhostTrail             GhostCompetitionGhostTrail[]
+  ghostCompetitionRegisteredFromTerminal GhostCompetitionRegisteredFromTerminal[]
+  GhostCompetitionTally                  GhostCompetitionTally[]
+  ghostCompetitionTarget                 GhostCompetitionTarget[]
+  ghostCrown                             GhostCrown[]
+  ghostTrail                             GhostTrail[]
+  timeAttackRecord                       TimeAttackRecord[]
+}
+
+model CarCampaignSchedule {
+  dbId              Int	  @id @default(autoincrement())
+  campaignStartAt   Int
+  campaignEndAt     Int
+  campaignId        Int
+}
+
+model CarSettings {
+  dbId               Int     @id @default(autoincrement())
+  view               Boolean @default(true)
+  transmission       Boolean @default(false)
+  retire             Boolean @default(false)
+  meter              Int     @default(0)
+  volume             Int     @default(2)
+  bgm                Int     @default(0)
+  nameplate          Int     @default(0)
+  nameplateColor     Int     @default(0)
+  car                Car?
+}
+
+model CarState {
+  dbId              Int     @id @default(autoincrement())
+  hasOpponentGhost  Boolean @default(false)
+  competitionState  Int     @default(1)
+  car               Car?
+}
+
+model FileList {
+  fileId      Int    @id @default(autoincrement())
+  fileType    Int
+  fileSize    Int
+  urlFileName String
+  sha1sum     String
+  notBefore   Int
+  notAfter    Int
+  filePath    String
+}
+
+model FriendCar {
+  dbId            Int @id @default(autoincrement())
+  carId           Int
+  friendCarId     Int
+  friendshipLevel Int
+  revengeLevel    Int
+}
+
+model GhostBattleRecord {
+  dbId                  Int    @id @default(autoincrement())
+  carId                 Int
+  area                  Int    @default(0)
+  tunePower             Int    @default(0)
+  tuneHandling          Int    @default(0)
+  playedAt              Int    @default(0)
+  playedShopName        String @default("Bayshore")
+  opponentCarId         Int
+  opponentResult        Int
+  car                   Car    @relation(fields: [carId], references: [carId])
+}
+
+model GhostCompetitionBattleRecord {
+  dbId                     Int                      @id @default(autoincrement())
+  carId                    Int
+  name                     String
+  regionId                 Int
+  model                    Int
+  visualModel              Int
+  defaultColor             Int
+  title                    Int
+  level                    Int
+  competitionDbId          Int
+  periodId                 Int
+  result                   Int
+  playedAt                 Int                      @default(0)
+  playedShopName           String                   @default("Bayshore")
+  brakingPoint             Int?
+  car                      Car                      @relation(fields: [carId], references: [carId])
+  GhostCompetitionSchedule GhostCompetitionSchedule @relation(fields: [competitionDbId], references: [dbId])
+}
+
+model GhostCompetitionDevGhostTrail {
+  dbId            Int   @id @default(autoincrement())
+  carId           Int
+  competitionDbId Int
+  periodId        Int
+  area            Int
+  ramp            Int
+  tunePower       Int   @default(0)
+  tuneHandling    Int   @default(0)
+  playedAt        Int   @default(0)
+  trail           Bytes
+}
+
+model GhostCompetitionGhostTrail {
+  dbId                     Int                      @id @default(autoincrement())
+  carId                    Int
+  competitionDbId          Int
+  periodId                 Int
+  area                     Int
+  ramp                     Int
+  tunePower                Int                      @default(0)
+  tuneHandling             Int                      @default(0)
+  playedAt                 Int                      @default(0)
+  trail                    Bytes
+  car                      Car                      @relation(fields: [carId], references: [carId])
+  GhostCompetitionSchedule GhostCompetitionSchedule @relation(fields: [competitionDbId], references: [dbId])
+}
+
+model GhostCompetitionRegisteredFromTerminal {
+  dbId            Int @id @default(autoincrement())
+  carId           Int
+  competitionDbId Int
+  opponentCarId   Int
+  car             Car @relation(fields: [carId], references: [carId])
+}
+
+model GhostCompetitionSchedule {
+  dbId                           Int                              @id @default(autoincrement())
+  competitionId                  Int
+  qualifyingPeriodStartAt        Int
+  qualifyingPeriodCloseAt        Int
+  competitionStartAt             Int
+  competitionCloseAt             Int
+  competitionEndAt               Int
+  lengthOfPeriod                 Int
+  lengthOfInterval               Int
+  area                           Int                              @default(0)
+  minigamePatternId              Int                              @default(0)
+  GhostCompetitionBattleRecord   GhostCompetitionBattleRecord[]
+  GhostCompetitionGhostTrail     GhostCompetitionGhostTrail[]
+  GhostCompetitionSchedulePeriod GhostCompetitionSchedulePeriod[]
+  GhostCompetitionTally          GhostCompetitionTally[]
+  GhostCompetitionTarget         GhostCompetitionTarget[]
+}
+
+model GhostCompetitionSchedulePeriod {
+  dbId                     Int                      @id @default(autoincrement())
+  competitionDbId          Int
+  periodId                 Int
+  startAt                  Int
+  closeAt                  Int
+  ghostCompetitionSchedule GhostCompetitionSchedule @relation(fields: [competitionDbId], references: [dbId])
+}
+
+model GhostCompetitionTally {
+  dbId                     Int                      @id @default(autoincrement())
+  carId                    Int
+  competitionId            Int
+  periodId                 Int
+  result                   Int
+  Car                      Car                      @relation(fields: [carId], references: [carId])
+  GhostCompetitionSchedule GhostCompetitionSchedule @relation(fields: [competitionId], references: [dbId])
+}
+
+model GhostCompetitionTarget {
+  dbId                     Int                      @id @default(autoincrement())
+  carId                    Int
+  competitionDbId          Int
+  periodId                 Int
+  car                      Car                      @relation(fields: [carId], references: [carId])
+  GhostCompetitionSchedule GhostCompetitionSchedule @relation(fields: [competitionDbId], references: [dbId])
+}
+
+model GhostCompetitionTargetGhostTrail {
+  dbId            Int   @id @default(autoincrement())
+  carId           Int
+  competitionDbId Int
+  periodId        Int
+  area            Int
+  ramp            Int
+  tunePower       Int   @default(0)
+  tuneHandling    Int   @default(0)
+  playedAt        Int   @default(0)
+  trail           Bytes
+}
+
+model GhostCrown {
+  dbId         Int @id @default(autoincrement())
+  carId        Int
+  area         Int @unique
+  tunePower    Int
+  tuneHandling Int
+  playedAt     Int @default(0)
+  car          Car[]
+}
+
+model GhostRevenger {
+  id              Int @id @default(autoincrement())
+  carId           Int
+  revengerCarId   Int
+  result          Int
+  area            Int
+  revengeLevel    Int
+  lastPlayedAt    Int @default(0)
+}
+
+model GhostTrail {
+  dbId              Int     @id @default(autoincrement())
+  carId             Int
+  area              Int
+  ramp              Int
+  tunePower         Int     @default(0)
+  tuneHandling      Int     @default(0)
+  playedAt          Int     @default(0)
+  crownBattle       Boolean @default(false)
+  trail             Bytes
+  car               Car     @relation(fields: [carId], references: [carId])
+}
+
+model PlaceList {
+  id       Int    @id @default(autoincrement())
+  placeId  String
+  regionId Int
+  shopName String
+  country  String
+  car      Car[]
+}
+
+model TimeAttackRecord {
+  dbId         Int     @id @default(autoincrement())
+  carId        Int
+  model        Int
+  time         Int
+  course       Int
+  isMorning    Boolean @default(true)
+  tunePower    Int     @default(0)
+  tuneHandling Int     @default(0)
+  playedAt     Int     @default(0)
+  section1Time Int     @map("section1Time")
+  section2Time Int     @map("section2Time")
+  section3Time Int     @map("section3Time")
+  section4Time Int     @map("section4Time")
+  section5Time Int?    @map("section5Time")
+  section6Time Int?    @map("section6Time")
+  section7Time Int?    @map("section7Time")
+  car          Car     @relation(fields: [carId], references: [carId])
+}
+
+model Team {
+  teamId                               Int               @id @default(autoincrement())
+  name                                 String
+  numOfStickers                        Int
+  leaderUserId                         Int
+  stickerFont                          Int
+  createdAt                            Int
+  updatedAt                            Int
+  closed                               Boolean
+  dissolved                            Boolean
+  fullfilled                           Boolean
+  recruitmentSuspended                 Boolean
+}
+
+model TeamApplicant {
+  dbId              Int     @id @default(autoincrement())
+  teamId            Int
+  applicantUserId   Int
+  expiresAt         Int
+}
+
+model TeamStickers {
+  dbId            Int               @id @default(autoincrement())
+  teamId          Int
+  opponentTeamId  Int
+  count           Int
+}
+
+model TeamStickersEarned {
+  dbId            Int               @id @default(autoincrement())
+  teamId          Int
+  opponentTeamId  Int
+  count           Int
+  earnedAt        Int
+}
+
+model User {
+  id                               Int               @id @default(autoincrement())
+  chipId                           String            @unique
+  accessCode                       String
+  carOrder                         Int[]
+  tutorials                        Int
+  userBanned                       Boolean           @default(false)
+  locked                           Boolean           @default(false)
+  hasHp600Count                    Int               @default(0)
+  competitionUserState             Int
+  teamId                           Int               @default(0)
+  cars                             Car[]
+}

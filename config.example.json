@@ -1,0 +1,17 @@
+{
+    "placeId": "JPN0123",
+    "shopName": "Bayshore4",
+    "shopNickname": "Bayshore4",
+    "regionId": "1",
+    "country": "JPN",
+    "region": "JPN",
+    "regionName": "JPN",
+    "serverIp": "127.0.0.1",
+    "gameOptions": {
+        "createCarsFullyTuned": false,
+        "giveMeterReward": 0,
+        "newCardsBanned": 0,
+		"revisionCheck": 1,
+        "multiLoggonEnabled": false
+    }
+}
