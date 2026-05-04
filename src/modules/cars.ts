@@ -50,11 +50,11 @@ export default class CarModule extends Module
 					opponentGhost: registeredTarget.opponentGhost,
 					opponentTrailId: registeredTarget.opponentTrailId,
 					opponentCompetitionId: registeredTarget.opponentCompetitionId,
-					competitionParameter: null,
+					//competitionParameter: null,
 
 					// Titles
-					specialTitles: null,
-					earnedTitles: null,
+					//specialTitles: null,
+					//earnedTitles: null,
 				};
 
 				// Generate the load car response message

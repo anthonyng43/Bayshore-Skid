@@ -600,11 +600,11 @@ export async function W3PCheck(body: v388.protobuf.PrepareCarSuccessionRequest) 
     // transfer data handling
     let stClearBits = 0;
     let dressupLevel = 0;
-    let dressUpPoint = 0;
     let tunePower = body.w3pTunePower;
     let tuneHandling = body.w3pTuneHandling;
     let ownedMeters = 0;
     let ownedBgm = 0;
+    let earnedCustomColor = false;
     let teamId = 0;
     let teamName = 'ＷＡＮＧＡＮ';
     let stickerFont = 1;
@@ -617,11 +617,12 @@ export async function W3PCheck(body: v388.protobuf.PrepareCarSuccessionRequest) 
         tunePower = body.w3pTunePower;
         tuneHandling = body.w3pTuneHandling;
     }
-    if (body.w3pDress >= 63) { dressupLevel = 63; } else { dressupLevel = body.w3pDress; } // todo: dressup points here
+    if (body.w3pDress >= 63) { dressupLevel = 63; } else { dressupLevel = body.w3pDress; }
     if (body.w3pHasMaxi2NolosePoint) { ownedMeters = 1; }
     if (body.w3pHasMaxi2NolosePoint && body.w3pHasStoryNolosePoint) { ownedMeters = 9; }
     if (body.w3pHasMaxi2NolosePoint) { ownedBgm = 8; }
     if (body.w3pHasMaxi2NolosePoint && body.w3pHasStoryNolosePoint) { ownedBgm = 12; }
+    if (body.w3pRenewal > 0) { earnedCustomColor = true; }
 
     if (team) {
         teamId = team.teamId;
@@ -660,11 +661,12 @@ export async function W3PCheck(body: v388.protobuf.PrepareCarSuccessionRequest) 
             rgPlayCount: body.w3pTargetPlayCount,
             maxiCoin: body.w3pMaxiCoin,
             dressupLevel: dressupLevel,
-            dressupPoint: dressUpPoint,
+            dressupPoint: 0,
             vsStarCount: body.w3pJoinStarCount,
             vsStarCountMax: body.w3pJoinStarCount,
             vsPlayCount: body.w3pJoinPlayCount,
             lastPlayedAt: body.timestamp,
+            earnedCustomColor: earnedCustomColor,
             ownedDressupParts: dressupLevel,
             ownedCustomColors: body.w3pRenewal,
             ownedMeters: ownedMeters,

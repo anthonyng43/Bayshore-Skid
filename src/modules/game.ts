@@ -165,7 +165,6 @@ export default class GameModule extends Module
 				else if(ghostModePlay === true && competitionModePlay === false && updateNewTrail === true && crownModePlay === true)
 				{
 					ghostSessionId = Math.floor(Math.random() * 50) + 51 // Normal Ghost session id range
-
 				}
 				// Competition (OCM) Ghost Battle game mode is completed
 				else if(ghostModePlay === true && competitionModePlay === true && updateNewTrail === true && crownModePlay === false)

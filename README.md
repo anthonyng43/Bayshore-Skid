@@ -8,7 +8,7 @@ Hopefully nothing.
 During Japan Challenge if the server tries to load the user's car as opponent.
 
 ## Things that hasn't fully optimised
-Car Data handling during transfer from Wangan Midnight Maximum Tune 3 DX Plus. 
+~~Car Data handling during transfer from Wangan Midnight Maximum Tune 3 DX Plus.~~ Hopefully correct handling 
 
 ## Credits
 This software is part of [Project Asakura](https://github.com/ProjectAsakura).

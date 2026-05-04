@@ -1,7 +1,5 @@
 import { prisma } from "../..";
 
-import * as ghost_ocm_area from "./ghost_util/ghost_competition_area";
-
 // Get Competiiton (OCM) ghost trail
 export async function getCompetitionGhostTrail(carId: number, trailId: number)
 {
@@ -54,7 +52,7 @@ export async function getCompetitionGhostTrail(carId: number, trailId: number)
     let area: number = 0;
     let ramp: number = 0;
     let playedAt: number = date;
-    let ghostTrail: Uint8Array;
+    let ghostTrail;
 
     // Ghost trail found
     if(ghost_trails)
@@ -84,22 +82,6 @@ export async function getCompetitionGhostTrail(carId: number, trailId: number)
 
         // Set to car ghost trails data
         ghostTrail = ghost_trails!.trail;
-    }
-    // Ghost trail not found
-    else
-    {
-        console.log('Competition (OCM) Ghost Trail not found');
-
-        // Get the ramp and id
-        let ghost_ocm_areas = await ghost_ocm_area.competitionArea(ghostCompetitionSchedule!.competitionId);
-
-        // Set area
-        area = ghost_ocm_areas.areaVal;
-        ramp = ghost_ocm_areas.rampVal;
-
-        // Random value lmao, for default ghost trail stuff (any value maybe works)
-        playedAt = date
-        ghostTrail = new Uint8Array();
     }
 
     return { area, ramp, playedAt, ghostTrail }

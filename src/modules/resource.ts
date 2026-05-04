@@ -337,7 +337,7 @@ export default class ResourceModule extends Module
 
                 ramp = ghost_trails!.ramp;
                 playedAt = ghost_trails!.playedAt;
-                ghostTrail = ghost_trails!.ghostTrail;
+                ghostTrail = ghost_trails!.ghostTrail!;
 
                 let playedPlace = wm.v388.protobuf.Place.create({ 
                     placeId: Config.getConfig().placeId,

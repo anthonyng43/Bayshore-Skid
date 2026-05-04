@@ -1,5 +1,4 @@
 import { prisma } from "../..";
-import { Config } from "../../config";
 
 // Import Proto
 import { v388 } from "../../wmmt/v388.proto";
