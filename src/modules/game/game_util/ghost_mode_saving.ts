@@ -47,10 +47,7 @@ export async function saveGhostBattleRecord(body: v388.protobuf.SaveGameResultRe
         if (getCrown) 
         {
             crownModePlay = true;
-        }
 
-        if (crownModePlay)
-        {
             let checkCrown = await prisma.ghostCrown.count({
                 where: {
                     area: rgResult.area
@@ -124,24 +121,40 @@ export async function saveGhostBattleRecord(body: v388.protobuf.SaveGameResultRe
                 });
             }
         } else {
-            let records = await prisma.ghostBattleRecord.findMany({
+            let getRecord = await prisma.ghostBattleRecord.findFirst({
                 where: {
+                    carId: body.carId,
                     opponentCarId: rgResult?.opponentCarId
-                },
-                orderBy: {
-                    playedAt: 'desc'
                 }
             });
 
-            await prisma.ghostBattleRecord.delete({
-                where: {
-                    dbId: records[9].dbId
-                }
-            });
+            if (getRecord) {
+                await prisma.ghostBattleRecord.update({
+                    where: {
+                        dbId: getRecord.dbId
+                    },
+                    data: saveExGhostHistory
+                });
+            } else {
+                let records = await prisma.ghostBattleRecord.findMany({
+                    where: {
+                        opponentCarId: rgResult?.opponentCarId
+                    },
+                    orderBy: {
+                        playedAt: 'desc'
+                    }
+                });
 
-            await prisma.ghostBattleRecord.create({
-                data: saveExGhostHistory
-            });
+                await prisma.ghostBattleRecord.delete({
+                    where: {
+                        dbId: records[9].dbId
+                    }
+                });
+
+                await prisma.ghostBattleRecord.create({
+                    data: saveExGhostHistory
+                });
+            }
         }
 
         if (body.rgResult?.opponentTeamId != null && body.rgResult?.opponentTeamId! != 0) {

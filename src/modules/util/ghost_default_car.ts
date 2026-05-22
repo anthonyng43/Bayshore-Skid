@@ -12,7 +12,7 @@ let playedPlace = wm.v388.protobuf.Place.create({
 });
 
 
-// Default Car for Random Ghost TODO: define random stickers
+// Default Car for Random Ghost
 export async function RandomGhost() {
     const randomAura = (): number => {
         // First decide if we want 0 or a number from the range
@@ -27,24 +27,22 @@ export async function RandomGhost() {
     }
 
     const randomVisualModel = (): number => {
-        const forbiddenNumbers = [44, 45, 46, 61, 62, 63, 64, 65, 67, 68, 69, 70, 93];
+        const forbiddenNumbers = [1,2,66, 67, 68];
         let result: number;
         
         do {
-            result = Math.floor(Math.random() * 90);
+            result = Math.floor(Math.random() * 85);
         } while (forbiddenNumbers.includes(result));
         
         return result;
     }
 
     const duSetup = (visualModel: number): boolean => {
-        const carWithNoDU = [27, 28, 99, 116, 118, 119, 120, 122, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 139, 143, 145];
+        const carWithNoDU = [6, 7]; // r35 obviously lol
         
         return !carWithNoDU.includes(visualModel);
     }
     const selectedVisualModel = randomVisualModel();
-    const carWithLimitedDU = [114, 115, 123, 124, 125, 126];
-    const hasLimitedDU = carWithLimitedDU.includes(selectedVisualModel);
     const canUseDU = duSetup(selectedVisualModel);
 
     let car = wm.v388.protobuf.Car.create({
@@ -52,27 +50,27 @@ export async function RandomGhost() {
         name: 'ランダム',
         regionId: Math.floor(Math.random() * 47) + 1,
         visualModel: selectedVisualModel,
-        defaultColor: Math.floor(Math.random() * 5),
-        customColor: canUseDU ? Math.floor(Math.random() * 25) : 0,
+        defaultColor: Math.floor(Math.random() * 5) + 1,
+        customColor: canUseDU ? Math.floor(Math.random() * 20) + 1 : 0,
         wheel: Math.floor(Math.random() * 50),
-        wheelColor: Math.floor(Math.random() * 5),
-        aero: canUseDU ? Math.floor(Math.random() * 5) : 0,
-        bonnet: canUseDU ? Math.floor(Math.random() * 5) : 0,
-        wing: canUseDU ? Math.floor(Math.random() * 5) : 0,
-        mirror: canUseDU ? Math.floor(Math.random() * 2) : 0,
-        sticker: 0,
-        stickerColor: 0,
-        neon: canUseDU && !hasLimitedDU ? Math.floor(Math.random() * 10) : 0,
-        trunk: canUseDU && !hasLimitedDU ? Math.floor(Math.random() * 1) : 0,
-        plate: canUseDU ? Math.floor(Math.random() * 4) : 0,
-        plateColor: canUseDU ? Math.floor(Math.random() * 10) : 0,
-        specialSticker: 0,
-        specialStickerColor: 0,
+        wheelColor: Math.floor(Math.random() * 5) + 1,
+        aero: canUseDU ? Math.floor(Math.random() * 6) + 1 : 0,
+        bonnet: canUseDU ? Math.floor(Math.random() * 5) + 1 : 0,
+        wing: canUseDU ? Math.floor(Math.random() * 6) + 1 : 0,
+        mirror: canUseDU ? Math.floor(Math.random() * 2) + 1 : 0,
+        sticker: canUseDU ? Math.floor(Math.random() * 31) + 1 : 0,
+        stickerColor: canUseDU ? Math.floor(Math.random() * 10) + 1 : 0,
+        neon: canUseDU ? Math.floor(Math.random() * 10) + 1: 0,
+        trunk: canUseDU ? Math.floor(Math.random() * 1) + 1 : 0,
+        plate: canUseDU ? Math.floor(Math.random() * 14) + 1: 0,
+        plateColor: canUseDU ? Math.floor(Math.random() * 8) + 1 : 0,
+        specialSticker: canUseDU ? Math.floor(Math.random() * 5) + 1 : 0,
+        specialStickerColor: canUseDU ? Math.floor(Math.random() * 10) + 1 : 0,
         tunePower: 16,
         tuneHandling: 16,
         aura: randomAura(), // using function to get random number
         title: 1,
-        level: Math.floor(Math.random() * 56),
+        level: Math.floor(Math.random() * 46) + 1,
         lastPlayedAt: 1656471120,
         country: 'JPN',
         lastPlayedPlace: playedPlace

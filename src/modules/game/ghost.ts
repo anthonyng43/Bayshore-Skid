@@ -44,10 +44,19 @@ export async function saveGhostBattleResult(body: v388.protobuf.SaveGameResultRe
                 {
                     cars.ghostLevel = 1;
                 }
-                else if(cars.ghostLevel > 11)
+                else if(cars.ghostLevel > 10)
                 {
-                    cars.ghostLevel = 10;
+                    cars.ghostLevel = 8;
                 }
+            }
+
+            if (car.rgScore >= 200)
+            {
+                cars.ghostLevel = 10;
+            }
+            else
+            {
+                cars.ghostLevel = 9;
             }
 
             // Car update data

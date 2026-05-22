@@ -66,11 +66,8 @@ export async function checkCurrentStep(body: v388.protobuf.SaveGameResultRequest
             break;
 
         case 31:
-            ghostLevel = 8
-            break;
-    
         case 32:
-            ghostLevel = 9
+            ghostLevel = 8
             break;
     }
 
@@ -83,9 +80,9 @@ export async function checkCurrentStep(body: v388.protobuf.SaveGameResultRequest
         }
     });
 
-    if (car?.rgScore! >= 1000)
+    if (car?.rgScore! >= 200)
     {
-        ghostLevel = 10;
+        ghostLevel = 9;
     }
 
     // Return the value to 'BASE_PATH/src/util/games/story.ts'

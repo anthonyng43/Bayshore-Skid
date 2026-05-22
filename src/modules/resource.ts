@@ -624,7 +624,7 @@ export default class ResourceModule extends Module
                 {
                     for (let i = 0; i < 10; i++) {
                         cars = await prisma.car.findMany({
-                            take: 1,
+                            take: 5,
                             where: {
                                 regionId: regionId,
                                 ghostLevel: i + 1
@@ -680,7 +680,7 @@ export default class ResourceModule extends Module
                                 break;
                         }
 
-                        if (cars.length === 0) {
+                        if (cars.length <= 5) {
                             let ghost_default_cars = await ghost_default_car.RandomGhost();
 
                             // Create Ghost
@@ -733,7 +733,7 @@ export default class ResourceModule extends Module
                                         lastPlayedAt: Math.floor(new Date().getTime() / 1000),
                                         lastPlayedPlace: playedPlace
                                     },
-                                    area: Math.floor(Math.random() * 10), // test
+                                    area: Math.floor(Math.random() * 10),
                                     nonhuman: true,
                                     ghostLevel: i + 1
                                 }));

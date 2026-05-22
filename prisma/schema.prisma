@@ -96,13 +96,6 @@ model Car {
   timeAttackRecord                       TimeAttackRecord[]
 }
 
-model CarCampaignSchedule {
-  dbId              Int	  @id @default(autoincrement())
-  campaignStartAt   Int
-  campaignEndAt     Int
-  campaignId        Int
-}
-
 model CarSettings {
   dbId               Int     @id @default(autoincrement())
   view               Boolean @default(true)
